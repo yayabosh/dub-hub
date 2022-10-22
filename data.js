@@ -1,4 +1,4 @@
-export function getEntries() {
+function getEntries() {
   let result = null;
   chrome.storage.sync.get('visits', (data) => {
     Object.assign(result, data.visits);
@@ -7,12 +7,12 @@ export function getEntries() {
   return result;
 }
 
-export function appendObject(obj) {
+function appendObject(obj) {
   let res = getEntries() + [obj];
   chrome.storage.sync.set({ visits: res });
 }
 
-export function addEntry(
+function addEntry(
   entryName,
   timestamp,
   sourceURL,
@@ -29,8 +29,8 @@ export function addEntry(
   appendObject(obj);
 }
 
-export function removeEntry(entryIndex) {}
+function removeEntry(entryIndex) {}
 
-export function clearData() {
+function clearData() {
   chrome.storage.sync.set({ visits: [] });
 }
