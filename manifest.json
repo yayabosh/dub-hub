@@ -3,10 +3,14 @@
   "name": "Dub Hub",
   "description": "TODO",
   "version": "1.0",
+  "options_page": "options.html",
   "action": {
     "default_popup": "popup/popup.html"
   },
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "permissions": [
+    "storage"
+  ]
 }
