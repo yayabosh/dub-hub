@@ -1,10 +1,16 @@
 const commonTimesDiv = document.getElementById('common-times');
 
 async function displayData() {
-  const entries = getEntries();
+  const entries = await getEntries();
 
-  if (entries.length == 0) {
-    commonTimesDiv.innerHTML = '<p>No Data</p>';
+  if (entries === undefined) {
+    alert('Storage is corrupt, will correct on close');
+    entries = [];
+    await chrome.storage.local.set({ visits, entries });
+  }
+
+  if (entries === null || entries.length === 0) {
+    commonTimesDiv.innerHTML = '<p>No Data</p><p>Try visiting a website</p>';
     return;
   }
 
