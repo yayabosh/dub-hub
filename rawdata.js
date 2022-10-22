@@ -1,7 +1,11 @@
-import getEntries from 'data.js';
-
 const dataElem = document.getElementById('data-area');
 
-visits = getEntries();
+dataElem.innerHTML = '<p>Retrieving data...</p>';
 
-dataElem.innerHTML = `<p>${visits}</p>`;
+async function updateData() {
+  visits = await getEntries();
+  if (visits.length == 0) dataElem.innerHTML = '<p>No Data.</p>';
+  else dataElem.innerHTML = `<p>${JSON.stringify(visits)}</p>`;
+}
+
+updateData();
