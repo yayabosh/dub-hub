@@ -19,10 +19,14 @@ function getTimeStats(entries) {
     const now = Date.now();
     const front = entries[0].timestamp;
 
-    const diff = front - now;
-    const dayDiff = diff / 1000 / 60 / 60 / 24;
-    const weekDiff = dayDiff / 7;
-    const yearDiff = dayDiff / 365;
+    const MS_TO_DAY = 1 / (1000 * 60 * 60 * 24);
+    const MS_TO_WEEK = 1 / (1000 * 60 * 60 * 24 * 7);
+    const MS_TO_YEAR = 1(1000 * 60 * 60 * 24 * 365);
+
+    const diff = now - front;
+    const dayDiff = Math.ceil(diff * MS_TO_DAY);
+    const weekDiff = Math.ceil(diff * MS_TO_WEEK);
+    const yearDiff = Math.ceil(diff * MS_TO_YEAR);
 
     let d;
     for (let i = 0; i < entries.length; i++) {
