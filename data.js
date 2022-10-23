@@ -1,5 +1,5 @@
 async function getEntries() {
-  let data = await chrome.storage.local.get('visits');
+  let data = await chrome.storage.sync.get('visits');
   return data.visits;
 }
 
@@ -9,7 +9,7 @@ async function appendObject(obj) {
     entries = [];
   }
   entries.push(obj);
-  await chrome.storage.local.set({ visits: entries });
+  await chrome.storage.sync.set({ visits: entries });
 }
 
 async function addEntry(
@@ -31,5 +31,5 @@ async function addEntry(
 async function removeEntry(entryIndex) {}
 
 async function clearData() {
-  await chrome.storage.local.set({ visits: [] });
+  await chrome.storage.sync.set({ visits: [] });
 }

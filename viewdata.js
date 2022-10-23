@@ -1,19 +1,8 @@
 const commonTimesDiv = document.getElementById('common-times');
+const popularWordsDiv = document.getElementById('popular-words');
+const wordCloudDiv = document.getElementById('word-cloud');
 
-function sortWordOccurences(words) {
-  const m = new Map();
-  for (let i = 0; i < words; i++) {
-    const word = words[i];
-    if (m[word]) m[word] = m[word] + 1;
-    else m[word] = 1;
-  }
-  const a = new Map([...m.entries()].sort());
-  return [...a.entries()];
-}
-
-function getWords(strings) {}
-
-async function displayData() {
+async function displayTimeData() {
   const entries = await getEntries();
 
   if (entries === undefined) {
@@ -63,5 +52,58 @@ async function displayData() {
     `<p>Your Peak Hour: ${hr}:00 ${com < 12 ? 'am' : 'pm'}</p>` + lstr;
 }
 
-commonTimesDiv.innerHTML = '<p>Loading data...</p>';
-displayData();
+async function displayWordData() {
+  const myWords = ['Hello', 'how', 'are', 'you'];
+
+  const margin = { top: 00, right: 100, bottom: 100, left: 100 };
+  const width = 450 - margin.left - margin.right;
+  const height = 450 - margin.top - margin.bottom;
+
+  const svg = d3
+    .select('#word-cloud')
+    .append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+
+  const layout = d3.layout
+    .cloud()
+    .size([width, height])
+    .words(
+      myWords.map(function (d) {
+        return { text: d };
+      })
+    )
+    .padding(10)
+    .fontSize(60)
+    .on('end', draw);
+  layout.start();
+
+  function draw(words) {
+    svg
+      .append('g')
+      .attr(
+        'tranform',
+        'translate(' + layout.size()[0] / 2 + ',' + layout.size()[1] / 2 + ')'
+      )
+      .selectAll('text')
+      .data(words)
+      .enter()
+      .append('text')
+      .style('font-size', function (d) {
+        return d.size + 'px';
+      })
+      .attr('text-anchor', 'middle')
+      .attr('transform', function (d) {
+        return 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')';
+      })
+      .text(function (d) {
+        return d.text;
+      });
+  }
+}
+
+//commonTimesDiv.innerHTML = '<p>Loading data...</p>';
+//displayTimeData();
+displayWordData();
