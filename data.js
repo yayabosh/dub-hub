@@ -1,5 +1,5 @@
 async function getEntries() {
-  return chrome.storage.sync.get('entries') || [];
+  return chrome.storage.sync.get('entries').entries || [];
 }
 
 async function addEntry(timestamp, title, url) {
