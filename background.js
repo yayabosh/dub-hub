@@ -259,6 +259,14 @@ async function initialize() {
       dhSessionPeriod: 20
     });
   }
+
+  let s = await chrome.storage.sync.get('dhEntryCount');
+  let v = s.dhEntryCount;
+  if (typeof v !== 'number') {
+    await chrome.storage.sync.set({
+      dhEntryCount: 0
+    });
+  }
 }
 initialize();
 
