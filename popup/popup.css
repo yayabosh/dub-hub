@@ -1,5 +1,5 @@
 body {
-  min-height: 100vh;
+  min-height: 50vh;
 }
 
 .flex {
@@ -16,20 +16,92 @@ body {
   align-items: center;
 }
 
-.button {
-  margin: 0 5px;
+img {
+  border-radius: 15px;
 }
 
-#logo {
-  width: 50%;
-  height: 50%;
-}
-
-#purple-text {
+.purple-text {
   color: purple;
 }
 
-#yellow-text {
+.yellow-text {
   background-color: orange;
   color: black;
+}
+
+@import url('https://rsms.me/inter/inter.css');
+html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter';
+}
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter var';
+  }
+}
+body {
+  animation: fadeIn 3s;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media only screen and (max-width: 768px) {
+  html,
+  body {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+}
+body {
+  /* margin-top: 25px;
+  margin-bottom: 100px;
+  margin-right: 100px;
+  margin-left: 100px; */
+  animation: fadeIn 1s;
+}
+button {
+  font-family: inherit;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 10px 5px;
+  transition-duration: 0.3s;
+  transition: 0.3s;
+  transition-delay: 0s;
+  cursor: pointer;
+  color: #fbfbfb;
+  background-color: #8b0000;
+  border: 1px solid #8b0000;
+}
+
+.purple {
+  background-color: purple;
+  border: 1px solid purple;
+}
+
+.purple:hover {
+  background-color: #fbfbfb;
+  color: purple;
+  transition: 0.3s;
+}
+
+.orange {
+  background-color: orange;
+  color: black;
+  border: 1px solid orange;
+}
+
+.orange:hover {
+  background-color: #fbfbfb;
+  color: orange;
+  transition: 0.3s;
+}
+
+a {
+  text-decoration: none;
 }
