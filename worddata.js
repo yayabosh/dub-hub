@@ -60,7 +60,7 @@ function countAllWords(entries) {
   return counts;
 }
 
-function displayCommonWords(uniqueWords) {
+async function displayCommonWords(uniqueWords) {
   let lstr = '<ol>';
   for (let i = 0; i < uniqueWords.length && i < MAX_WORDS; i++) {
     lstr += `<li>${uniqueWords[i].word}</li>`;
@@ -69,7 +69,7 @@ function displayCommonWords(uniqueWords) {
   popularWordsDiv.innerHTML = lstr;
 }
 
-function displayWordCloud(words) {
+async function displayWordCloud(words) {
   const config = {
     trace: true,
     spiralResolution: 1, //Lower = better resolution

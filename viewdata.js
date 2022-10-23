@@ -25,9 +25,11 @@ async function displayAll() {
     return;
   }
 
-  displayTimeData(entries);
-
+  const timestats = getTimeStats(entries);
   const words = countAllWords(entries);
+
+  displayTimeData(timestats);
+
   displayCommonWords(words.sortedUniqueWords);
   displayWordCloud(words.sortedWords);
 }
