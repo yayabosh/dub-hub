@@ -1,5 +1,18 @@
 const commonTimesDiv = document.getElementById('common-times');
 
+function sortWordOccurences(words) {
+  const m = new Map();
+  for (let i = 0; i < words; i++) {
+    const word = words[i];
+    if (m[word]) m[word] = m[word] + 1;
+    else m[word] = 1;
+  }
+  const a = new Map([...m.entries()].sort());
+  return [...a.entries()];
+}
+
+function getWords(strings) {}
+
 async function displayData() {
   const entries = await getEntries();
 
@@ -32,7 +45,7 @@ async function displayData() {
   let lstr = '<ul>';
 
   for (let i = 0; i < counts.length; i++) {
-    let disp = i % 12;
+    const disp = i % 12;
     if (disp === 0) disp = 12;
     lstr += `<li><b>${disp}:00 ${i < 12 ? 'am' : 'pm'}</b> - ${counts[i]}</li>`;
   }
@@ -43,7 +56,7 @@ async function displayData() {
   for (let i = 0; i < counts.length; i++) {
     if (counts[i] > counts[com]) com = i;
   }
-  let hr = com % 12;
+  const hr = com % 12;
   if (hr === 0) hr = 12;
 
   commonTimesDiv.innerHTML =
