@@ -7,9 +7,9 @@ async function addEntry(timestamp, title, url) {
   const entries = await getEntries();
   // Add the new entry
   entries.push({
-    timestamp: timestamp,
-    title: pageTitle,
-    url: sourceURL
+    timestamp,
+    title,
+    url
   });
   // Save the new entries
   chrome.storage.sync.set({ entries });
