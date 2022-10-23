@@ -26,8 +26,12 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   const url = tabIdtoURLandTitle[tabId].url;
   const title = tabIdtoURLandTitle[tabId].title;
   if (url && title) {
+    // console.log(url, title);
     for (const domain of whitelist) {
-      if (url.startsWith(`https://${domain}`)) {
+      if (
+        url.startsWith(`https://www.${domain}`) ||
+        url.startsWith(`http://${domain}`)
+      ) {
         console.log(`Adding entry for ${title} (${url})`);
 
         chrome.storage.sync.get('entries', (data) => {
