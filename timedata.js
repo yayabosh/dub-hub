@@ -10,8 +10,8 @@ function getTimeStats(entries) {
     months: new Array(12).fill(0),
 
     sessionHours: new Array(24).fill(0),
-    sessionDow: new Array(24).fill(0),
-    sessionMonths: new Array(24).fill(0)
+    sessionDow: new Array(7).fill(0),
+    sessionMonths: new Array(12).fill(0)
   };
 
   if (entries.length > 0) {
