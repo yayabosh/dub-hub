@@ -1,11 +1,13 @@
-async function displayAll() {
-  const commonTimesDiv = document.getElementById('common-times');
-  const popularWordsDiv = document.getElementById('popular-words');
-  const wordCloudDiv = document.getElementById('word-cloud');
+const commonTimesDiv = document.getElementById('common-times');
+const popularWordsDiv = document.getElementById('popular-words');
+const wordCloudDiv = document.getElementById('word-cloud');
 
+const MAX_WORDS = 10;
+
+const wordBlacklick = [];
+
+async function displayAll() {
   const entries = await getEntries();
-  console.log(entries);
-  console.log(entries.length);
 
   if (entries === undefined) {
     commonTimesDiv.innerHTML = '<p>Corrupted.</p>';
@@ -64,48 +66,86 @@ async function displayAll() {
       `<p>Your Peak Hour: ${hr}:00 ${com < 12 ? 'am' : 'pm'}</p>` + lstr;
   }
 
-  const uniqueWordSet = new Set();
-  let words = [];
+  //const uniqueWordSet = new Set();
+  const allWords = [];
   for (let i = 0; i < entries.length; i++) {
-    const title = entries[i].title;
+    let title = entries[i].title.trim();
+    title = title.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/g, '');
+    title = title.replace(/^\s+|\s+$/g, '');
+    title = title.toLowerCase();
+
     console.log(title);
-    const splitted = title.split();
+    const splitted = title.split(/\s+/);
+    console.log(splitted);
     for (let j = 0; j < splitted.length; j++) {
-      words.push(splitted[j]);
-      uniqueWordSet.add(splitted[j]);
+      allWords.push(splitted[j]);
+      //uniqueWordSet.add(splitted[j]);
+      console.log(splitted[j]);
     }
   }
 
-  function mapFun(word) {
+  function countWords(array) {
+    const map = new Map();
+    const set = new Set();
+
+    for (let i = 0; i < array.length; i++) {
+      const word = array[i];
+      if (map.get(word) !== undefined) {
+        map.get(word).freq += 10;
+      } else {
+        const obj = {
+          word: word,
+          freq: 10
+        };
+        map.set(word, obj);
+        set.add(obj);
+      }
+    }
+
+    const sortedWords = [];
+    const sortedUniqueWords = [];
+
+    map.forEach((value, key, map) => sortedWords.push(value));
+    set.forEach((value) => sortedUniqueWords.push(value));
+
+    console.log(sortedWords);
+    console.log(sortedUniqueWords);
+
+    const cmp = (a, b) => b.freq - a.freq;
+    sortedWords.sort(cmp);
+    sortedUniqueWords.sort(cmp);
+
     return {
-      word: word,
-      freq: Math.floor(Math.random() * 50) + 10
+      sortedWords,
+      sortedUniqueWords,
+      map
     };
   }
 
-  function sortFun(a, b) {
-    return -1 * (a.freq - b.freq);
-  }
+  //const uniqueWordArray = Array.from(uniqueWordSet);
 
-  let uniqueWordArray = [...uniqueWordSet.entries()];
+  const counts = countWords(allWords);
 
-  words.map(mapFun);
-  uniqueWordArray.map(mapFun);
+  console.log(counts);
 
-  words.sort(sortFun);
-  uniqueWordArray.sort(sortFun);
+  const words = counts.sortedWords;
+  const uniqueWords = counts.sortedUniqueWords;
+  //const countMap = counts.map;
+  //words = counts.words;
+
+  // words.sort(sortFun);
+  //uniqueWordArray.sort(sortFun);
 
   async function displayCommonWords() {
     let lstr = '<ol>';
-    for (let i = 0; i < uniqueWordArray.length; i++) {
-      lstr += `<li>${uniqueWordArray[i]}</li>`;
+    for (let i = 0; i < uniqueWords.length && i < MAX_WORDS; i++) {
+      lstr += `<li>${uniqueWords[i].word}</li>`;
     }
     lstr += '</ol>';
     popularWordsDiv.innerHTML = lstr;
   }
 
   async function displayWordData() {
-    /*  ======================= SETUP ======================= */
     const config = {
       trace: true,
       spiralResolution: 1, //Lower = better resolution
@@ -116,27 +156,26 @@ async function displayAll() {
       font: 'sans-serif'
     };
 
-    var cloud = document.getElementById('word-cloud');
-    cloud.style.position = 'relative';
-    cloud.style.fontFamily = config.font;
+    wordCloudDiv.style.position = 'relative';
+    wordCloudDiv.style.fontFamily = config.font;
 
     var traceCanvas = document.createElement('canvas');
-    traceCanvas.width = cloud.offsetWidth;
-    traceCanvas.height = cloud.offsetHeight;
+    traceCanvas.width = wordCloudDiv.offsetWidth;
+    traceCanvas.height = wordCloudDiv.offsetHeight;
     var traceCanvasCtx = traceCanvas.getContext('2d');
-    cloud.appendChild(traceCanvas);
+    wordCloudDiv.appendChild(traceCanvas);
 
-    var startPoint = {
-      x: cloud.offsetWidth / 2,
-      y: cloud.offsetHeight / 2
+    const startPoint = {
+      x: wordCloudDiv.offsetWidth / 2,
+      y: wordCloudDiv.offsetHeight / 2
     };
 
-    var wordsDown = [];
+    let wordsDown = [];
     /* ======================= END SETUP ======================= */
 
     /* =======================  PLACEMENT FUNCTIONS =======================  */
     function createWordObject(word, freq) {
-      var wordContainer = document.createElement('div');
+      const wordContainer = document.createElement('div');
       wordContainer.style.position = 'absolute';
       wordContainer.style.fontSize = freq + 'px';
       wordContainer.style.lineHeight = config.lineHeight;
@@ -147,7 +186,7 @@ async function displayAll() {
     }
 
     function placeWord(word, x, y) {
-      cloud.appendChild(word);
+      wordCloudDiv.appendChild(word);
       word.style.left = x - word.offsetWidth / 2 + 'px';
       word.style.top = y - word.offsetHeight / 2 + 'px';
 
@@ -168,17 +207,17 @@ async function displayAll() {
     }
 
     function intersect(word, x, y) {
-      cloud.appendChild(word);
+      wordCloudDiv.appendChild(word);
 
       word.style.left = x - word.offsetWidth / 2 + 'px';
       word.style.top = y - word.offsetHeight / 2 + 'px';
 
-      var currentWord = word.getBoundingClientRect();
+      const currentWord = word.getBoundingClientRect();
 
-      cloud.removeChild(word);
+      wordCloudDiv.removeChild(word);
 
-      for (var i = 0; i < wordsDown.length; i += 1) {
-        var comparisonWord = wordsDown[i];
+      for (let i = 0; i < wordsDown.length; i += 1) {
+        const comparisonWord = wordsDown[i];
 
         if (
           !(
@@ -202,10 +241,10 @@ async function displayAll() {
 
     /* =======================  LETS GO! =======================  */
     (function placeWords() {
-      for (var i = 0; i < words.length; i += 1) {
-        var word = createWordObject(words[i].word, words[i].freq);
+      for (let i = 0; i < words.length; i += 1) {
+        const word = createWordObject(words[i].word, words[i].freq);
 
-        for (var j = 0; j < config.spiralLimit; j++) {
+        for (let j = 0; j < config.spiralLimit; j++) {
           //If the spiral function returns true, we've placed the word down and can break from the j loop
           if (
             spiral(j, function () {
@@ -227,7 +266,7 @@ async function displayAll() {
       traceCanvasCtx.beginPath();
 
       if (config.trace) {
-        var frame = 1;
+        let frame = 1;
 
         function animate() {
           spiral(frame, function () {
