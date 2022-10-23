@@ -183,7 +183,7 @@ async function initialize() {
 initialize();
 
 // Each time a tab is updated, we store the URL and title in the map if it's in the whitelist
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (!tabIdtoURLandTitle[tabId]) {
     tabIdtoURLandTitle[tabId] = {
       url: null,
@@ -213,17 +213,24 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       ) {
         console.log(`Adding entry for ${title} (${url})`);
 
-        chrome.storage.sync.get('entries', (data) => {
-          const entries = data.entries || [];
-          entries.push({
+        let entryCount = 0;
+        await chrome.storage.sync.get('dhEntryCount', (data) => {
+          if (data === undefined) return;
+          entryCount = data.dhEntryCount;
+        });
+
+        let all = await chrome.storage.sync.get(null);
+
+        const key = `dhEntry${entryCount}`;
+        all[key] = {
             url,
             title,
             timestamp: Date.now()
-          });
-          chrome.storage.sync.set({ entries });
-        });
+        };
 
-        chrome.storage.sync.get('entries', (data) => console.log(data));
+        chrome.storage.sync.set(all);
+        chrome.storage.sync.set({dhEntryCount: entryCount + 1});
+
         break;
       }
     }

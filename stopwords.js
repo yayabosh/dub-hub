@@ -1169,5 +1169,8 @@ const STOPWORDS = new Set([
   'movie',
   'movies',
   'free',
-  'xxx'
+  'xxx',
+  'tube',
+  'fuck',
+  'fucked'
 ]);

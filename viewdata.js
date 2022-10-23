@@ -24,7 +24,8 @@ async function displayAll() {
   const words = countAllWords(entries);
 
   displayCommonWords(words.sortedUniqueWords);
-  displayWordCloud(words.sortedWords);
+  console.log(words.maxwords);
+  displayWordCloud(words.sortedWords, words.maxwords);
 
   displayGraphs(timestats);
 }

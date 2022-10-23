@@ -67,10 +67,10 @@ function getTimeStats(entries) {
     d = new Date(0);
     d.setUTCMilliseconds(entries[entries.length - 1].timestamp);
 
-    timestats.sessionCount++;
-    timestats.sessionHours[d.getHours()];
-    timestats.sessionDow[d.getDay()];
-    timestats.sessionMonths[d.getMonth()];
+    timestats.sessionTotal++;
+    timestats.sessionHours[d.getHours()]++;
+    timestats.sessionDow[d.getDay()]++;
+    timestats.sessionMonths[d.getMonth()]++;
 
     for (let i = 0; i < 24; i++) {
       timestats.hours[i] /= dayDiff;

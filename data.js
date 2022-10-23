@@ -1,23 +1,34 @@
 async function getEntries() {
-  const e = await chrome.storage.sync.get('entries');
-  return e.entries || [];
-}
+  let entryCount = 0;
+  const data = await chrome.storage.sync.get('dhEntryCount');
+  if (data === undefined) return [];
+  entryCount = data.dhEntryCount;
 
-async function addEntry(timestamp, title, url) {
-  console.log(`Adding entry for ${title} (${url})`);
-  chrome.storage.sync.get('entries', (data) => {
-    const entries = data.entries || [];
-    entries.push({
-      url,
-      title,
-      timestamp: Date.now()
-    });
-    chrome.storage.sync.set({ entries });
-  });
+  console.log(entryCount);
 
-  chrome.storage.sync.get('entries', (data) => console.log(data));
+  let result = [];
+  for (let i = 0; i < entryCount; i++) {
+    const key = `dhEntry${i}`;
+    const entdata = await chrome.storage.sync.get(key);
+    if (entdata === undefined) continue;
+    result.push(entdata[key]);
+
+  }
+
+  return result;
 }
 
 async function clearData() {
-  await chrome.storage.sync.set({ entries: [] });
+  let entryCount = 0;
+  await chrome.storage.sync.get('dhEntryCount', (data) => {
+    if (data === undefined) return;
+    entryCount = data.dhEntryCount;
+  });
+
+  for (let i = 0; i < entryCount; i++) {
+    const key = `dhEntry${i}`;
+    await chrome.storage.sync.set(key, null);
+  }
+
+  await chrome.storage.sync.set({dhEntryCount: 0});
 }
