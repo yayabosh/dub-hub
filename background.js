@@ -4,8 +4,8 @@ const whitelist = ['youtube', 'twitter'];
 // From: https://toppornsites.com/
 const tracklist = new Set([
   // for testing
- // 'youtube',
- // 'twitter',
+  'youtube',
+  'twitter',
   // "Top Porn Tube Sites"
   'xVideos',
   'PornHub',
@@ -213,12 +213,8 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       ) {
         console.log(`Adding entry for ${title} (${url})`);
 
-        let entryCount = 0;
-        await chrome.storage.sync.get('dhEntryCount', (data) => {
-          if (data === undefined) return;
-          entryCount = data.dhEntryCount;
-        });
-
+        let s = await chrome.storage.sync.get('dhEntryCount');
+        let entryCount = (typeof s === 'number') ? s.dhEntryCount : 0;
         let all = await chrome.storage.sync.get(null);
 
         const key = `dhEntry${entryCount}`;
