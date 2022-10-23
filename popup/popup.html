@@ -1,15 +1,32 @@
+<!DOCTYPE html>
+
 <html>
 
 <head>
   <script src="../data.js"></script>
   <script defer src="popup.js"></script>
+  <link rel="stylesheet" href="popup.css">
 </head>
 
 <body>
-  <h1>Dub <div style="background-color: rgb(104, 27, 154);color:rgb(249, 243, 53)">Hub</div>
-  </h1>
-  <a href="../viewdata.html" target="_blank"><button>View Data</button></a>
-  <a href="../options.html" target="_blank"><button>Clear Data</button></a>
+  <img src="../images/logo.png" alt="Dub Hub" width="300" height="150">
+  <div class="flex">
+    <h1>
+      Welcome to <span id="purple-text">Dub</span> <span id="yellow-text">Hub</span>!
+    </h1>
+    <div class="buttons-flex">
+      <a href="../viewdata.html" target="_blank">
+        <button class="button">
+          View My Data
+        </button>
+      </a>
+      <a href="../options.html" target="_blank">
+        <button class="button">
+          Clear My Data
+        </button>
+      </a>
+    </div>
+  </div>
 </body>
 
 </html>

@@ -1,0 +1,35 @@
+body {
+  min-height: 100vh;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  margin: 0 5px;
+}
+
+#logo {
+  width: 50%;
+  height: 50%;
+}
+
+#purple-text {
+  color: purple;
+}
+
+#yellow-text {
+  background-color: orange;
+  color: black;
+}
