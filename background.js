@@ -4,8 +4,8 @@ const whitelist = ['youtube', 'twitter'];
 // From: https://toppornsites.com/
 const tracklist = new Set([
   // for testing
-  'youtube',
-  'twitter',
+ // 'youtube',
+ // 'twitter',
   // "Top Porn Tube Sites"
   'xVideos',
   'PornHub',
