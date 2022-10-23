@@ -1,14 +1,7 @@
 const MAX_DISPLAY_WORDS = 15;
 const MAX_WORDCLOUD_WORDS = 32;
 
-const DOMAINS = [ '', 'com',
-       'net',
-         'info',
-         'xxx',
-        'tv',
-        'live',
-        'cc'];
-
+const DOMAINS = ['', 'com', 'net', 'info', 'xxx', 'tv', 'live', 'cc'];
 
 function countWords(array) {
   const map = new Map();
@@ -38,7 +31,7 @@ function countWords(array) {
   sortedWords.sort(cmp);
   sortedUniqueWords.sort(cmp);
 
-   let maxwords = 0;
+  let maxwords = 0;
   for (let i = 0; i < sortedUniqueWords.length; i++) {
     maxwords = Math.max(maxwords, sortedUniqueWords[i].freq);
   }
@@ -67,7 +60,9 @@ function countAllWords(entries) {
       // test against stoplist and tracklist
       let found = false;
       tracklist.forEach((elem) => {
-        const s = elem.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/g, '').toLowerCase();
+        const s = elem
+          .replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/g, '')
+          .toLowerCase();
         for (let k = 0; k < DOMAINS.length; k++) {
           if (s + DOMAINS[k] === splitted[j]) {
             found = true;
@@ -78,8 +73,7 @@ function countAllWords(entries) {
         return true;
       });
 
-      if (found)
-        continue;
+      if (found) continue;
 
       if (STOPWORDS.has(splitted[j]) || tracklist.has(splitted[j])) continue;
       if (splitted[j].match(/^\d+$/g) && splitted[j] !== '69') continue;
@@ -183,7 +177,7 @@ async function displayWordCloud(words, maxwords) {
   }
 
   for (let i = 0; i < words.length && i < MAX_DISPLAY_WORDS; i++) {
-    const scale = (words[i].freq * 50 / maxwords);
+    const scale = (words[i].freq * 50) / maxwords;
     const word = createWordObject(words[i].word, scale);
 
     for (let j = 0; j < config.spiralLimit; j++) {

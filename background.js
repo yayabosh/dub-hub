@@ -214,18 +214,18 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         console.log(`Adding entry for ${title} (${url})`);
 
         let s = await chrome.storage.sync.get('dhEntryCount');
-        let entryCount = (typeof s === 'number') ? s.dhEntryCount : 0;
+        let entryCount = typeof s === 'number' ? s.dhEntryCount : 0;
         let all = await chrome.storage.sync.get(null);
 
         const key = `dhEntry${entryCount}`;
         all[key] = {
-            url,
-            title,
-            timestamp: Date.now()
+          url,
+          title,
+          timestamp: Date.now()
         };
 
         chrome.storage.sync.set(all);
-        chrome.storage.sync.set({dhEntryCount: entryCount + 1});
+        chrome.storage.sync.set({ dhEntryCount: entryCount + 1 });
 
         break;
       }

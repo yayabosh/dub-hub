@@ -12,7 +12,6 @@ async function getEntries() {
     const entdata = await chrome.storage.sync.get(key);
     if (entdata === undefined) continue;
     result.push(entdata[key]);
-
   }
 
   return result;
@@ -30,5 +29,5 @@ async function clearData() {
     await chrome.storage.sync.set(key, null);
   }
 
-  await chrome.storage.sync.set({dhEntryCount: 0});
+  await chrome.storage.sync.set({ dhEntryCount: 0 });
 }

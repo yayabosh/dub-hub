@@ -115,7 +115,7 @@ function displayHourlyGraph(hourlyData) {
           'rgb(54, 162, 235)',
           'rgb(153, 102, 255)',
           'rgb(201, 203, 207)'
-        ],
+        ]
       }
     ]
   };
