@@ -1,7 +1,3 @@
-// CONTENT WARNING
-// This file contains content that be considered offensive to some readers
-// Browse at your own risk
-
 // This is a list of sites that are whitelisted for the extension.
 const whitelist = ['youtube', 'twitter'];
 
