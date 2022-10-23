@@ -65,12 +65,13 @@ async function displayAll() {
   }
 
   let words = [];
-  console.log(entries);
   for (let i = 0; i < entries.length; i++) {
     const title = entries[i].title;
-    const words = title.split();
-    words.push(words);
+    console.log(title);
+    const splitted = title.split();
+    words.push(splitted);
   }
+  console.log(words);
 
   words.map(function (word) {
     return {
@@ -83,13 +84,15 @@ async function displayAll() {
     return -1 * (a.freq - b.freq);
   });
 
+  console.log(words);
+
   async function displayCommonWords() {
     let lstr = '<ol>';
-    for (const word in words) {
-      lstr += `<li>${word}</li>`;
+    for (let i = 0; i < words.length; i++) {
+      lstr += `<li>${words[i]}</li>`;
     }
     lstr += '</ol>';
-    popularWordsDiv.innerHTML;
+    popularWordsDiv.innerHTML = lstr;
   }
 
   async function displayWordData() {
