@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+  <title>My Stats</title>
   <script src="data.js"></script>
-  <script defer src="viewdata.js"></script>
+  <script src="viewdata.js"></script>
+  <link rel="stylesheet" href="viewdata.css">
+</head>
 
-  <head>
-    <title>My Stats</title>
-  </head>
+<body>
+  <h1>My Stats</h1>
+  <h2>View Times</h2>
+  <div id="common-times">
+    Loading....
+  </div>
+  <h2>Most Common Words</h2>
+  <div id="popular-words">
+    Loading...
+  </div>
+  <h2>Word Cloud</h2>
+  <div id="word-cloud"></div>
+</body>
 
-  <body>
-    <h1>My Stats</h1>
-        <h2>View Times</h2>
-        <div id="common-times">
-            Loading....
-        </div>
-        <h2>Most Common Words</h2>
-        <div id="popular-words">
-            Loading...
-        </div>
-        <h2>Word Cloud</h2>
-    <div id="word-cloud"></div>
-  </body>
 </html>
