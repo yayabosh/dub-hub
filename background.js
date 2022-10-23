@@ -1,11 +1,91 @@
+
+// CONTENT WARNING
+// This file contains content that be considered offensive to some readers
+// Browse at your own risk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // This is a list of sites that are whitelisted for the extension.
 const whitelist = ['youtube', 'twitter'];
 
 // From: https://toppornsites.com/
 const tracklist = new Set([
   // for testing
-  'youtube',
-  'twitter',
+  //'youtube',
+  //'twitter',
   // "Top Porn Tube Sites"
   'xVideos',
   'PornHub',
