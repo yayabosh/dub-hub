@@ -3,8 +3,9 @@ const SESSION_LENGTH = 1000 * 60 * 20; // length of a session
 // Get statistics about time usage
 function getTimeStats(entries) {
   const timestats = {
-    total: 0,
-    sessionCount: 0,
+    total: entries.length,
+    sessionTotal: 0,
+
     hours: new Array(24).fill(0),
     dow: new Array(7).fill(0),
     months: new Array(12).fill(0),
@@ -15,6 +16,14 @@ function getTimeStats(entries) {
   };
 
   if (entries.length > 0) {
+    const now = Date.now();
+    const front = entries[0].timestamp;
+
+    const diff = front - now;
+    const dayDiff = diff / 1000 / 60 / 60 / 24;
+    const weekDiff = dayDiff / 7;
+    const yearDiff = dayDiff / 365;
+
     let d;
     for (let i = 0; i < entries.length; i++) {
       d = new Date(0);
@@ -30,7 +39,7 @@ function getTimeStats(entries) {
           d = new Date(0);
           d.setUTCMilliseconds(entries[i - 1].timestamp);
 
-          timestats.sessionCount++;
+          timestats.sessionTotal++;
           timestats.sessionHours[d.getHours()]++;
           timestats.sessionDow[d.getDay()]++;
           timestats.sessionMonths[d.getMonth()]++;
@@ -45,6 +54,21 @@ function getTimeStats(entries) {
     timestats.sessionHours[d.getHours()];
     timestats.sessionDow[d.getDay()];
     timestats.sessionMonths[d.getMonth()];
+
+    for (let i = 0; i < 24; i++) {
+      timestats.hours[i] /= dayDiff;
+      timestats.sessionHours[i] /= dayDiff;
+    }
+
+    for (let i = 0; i < 7; i++) {
+      timestats.dow[i] /= weekDiff;
+      timestats.sessionDow[i] /= weekDiff;
+    }
+
+    for (let i = 0; i < 12; i++) {
+      timestats.months[i] /= yearDiff;
+      timestats.sessionMonths[i] /= yearDiff;
+    }
   }
 
   return timestats;
