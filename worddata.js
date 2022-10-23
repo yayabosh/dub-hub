@@ -67,7 +67,7 @@ function countAllWords(entries) {
 async function displayCommonWords(uniqueWords) {
   let lstr = '<ol>';
   for (let i = 0; i < uniqueWords.length && i < MAX_DISPLAY_WORDS; i++) {
-    lstr += `<li>${uniqueWords[i].word}</li>`;
+    lstr += `<li><b>${uniqueWords[i].word}</b> (${uniqueWords[i].freq})</li>`;
   }
   lstr += '</ol>';
   popularWordsDiv.innerHTML = lstr;
@@ -105,7 +105,7 @@ async function displayWordCloud(words) {
   function createWordObject(word, freq) {
     const wordContainer = document.createElement('div');
     wordContainer.style.position = 'absolute';
-    wordContainer.style.fontSize = freq + 'px';
+    wordContainer.style.fontSize = 20 * freq + 'px';
     wordContainer.style.lineHeight = config.lineHeight;
     /*    wordContainer.style.transform = "translateX(-50%) translateY(-50%)";*/
     wordContainer.appendChild(document.createTextNode(word));
