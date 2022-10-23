@@ -66,21 +66,21 @@ async function displayAll() {
       `<p>Your Peak Hour: ${hr}:00 ${com < 12 ? 'am' : 'pm'}</p>` + lstr;
   }
 
-  //const uniqueWordSet = new Set();
   const allWords = [];
   for (let i = 0; i < entries.length; i++) {
-    let title = entries[i].title.trim();
-    title = title.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/g, '');
-    title = title.replace(/^\s+|\s+$/g, '');
-    title = title.toLowerCase();
-
+    console.log(entries[i].title);
+    const title = entries[i].title
+      .replace(/\u2019/g, '')
+      .replace(/\u2018/g, '')
+      .trim()
+      .replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/g, '')
+      .replace(/^\s+|\s+$/g, '')
+      .toLowerCase();
     console.log(title);
+
     const splitted = title.split(/\s+/);
-    console.log(splitted);
     for (let j = 0; j < splitted.length; j++) {
-      allWords.push(splitted[j]);
-      //uniqueWordSet.add(splitted[j]);
-      console.log(splitted[j]);
+      if (!STOPWORDS.has(splitted[j])) allWords.push(splitted[j]);
     }
   }
 
