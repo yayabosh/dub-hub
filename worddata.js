@@ -22,7 +22,7 @@ function countWords(array) {
   const sortedWords = [];
   const sortedUniqueWords = [];
 
-  map.forEach((value, key, map) => sortedWords.push(value));
+  map.forEach((value) => sortedWords.push(value));
   set.forEach((value) => sortedUniqueWords.push(value));
 
   console.log(sortedWords);
@@ -56,14 +56,12 @@ function countAllWords(entries) {
     for (let j = 0; j < splitted.length; j++) {
       // test against stoplist and tracklist
       if (STOPWORDS.has(splitted[j]) || tracklist.has(splitted[j])) continue;
-      //if (splitted[j].match(/f/g)) allWords.push(splitted[j]);
+      if (splitted[j].match(/^\d+$/g) && splitted[j] !== '69') continue;
       allWords.push(splitted[j]);
     }
   }
 
-  const counts = countWords(allWords);
-
-  return counts;
+  return countWords(allWords);
 }
 
 async function displayCommonWords(uniqueWords) {

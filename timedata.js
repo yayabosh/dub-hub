@@ -1,24 +1,50 @@
+const SESSION_LENGTH = 1000 * 60 * 20; // length of a session
+
+// Get statistics about time usage
 function getTimeStats(entries) {
   const timestats = {
     total: 0,
+    sessionCount: 0,
     hours: new Array(24).fill(0),
     dow: new Array(7).fill(0),
-    months: new Array(12).fill(0)
+    months: new Array(12).fill(0),
+
+    sessionHours: new Array(24).fill(0),
+    sessionDow: new Array(24).fill(0),
+    sessionMonths: new Array(24).fill(0)
   };
 
-  for (let i = 0; i < entries.length; i++) {
-    const entry = entries[i];
+  if (entries.length > 0) {
+    let d;
+    for (let i = 0; i < entries.length; i++) {
+      d = new Date(0);
+      d.setUTCMilliseconds(entries[i].timestamp);
 
-    const d = new Date(0);
-    d.setUTCMilliseconds(entry.timestamp);
+      timestats.hours[d.getHours()]++;
+      timestats.dow[d.getDay()]++;
+      timestats.months[d.getMonth()]++;
 
-    const hour = d.getHours();
-    const dow = d.getDay();
-    const month = d.getMonth();
+      if (i !== 0) {
+        let diff = entries[i].timestamp - entries[i - 1].timestamp;
+        if (diff >= SESSION_LENGTH) {
+          d = new Date(0);
+          d.setUTCMilliseconds(entries[i - 1].timestamp);
 
-    timestats.hours[hour]++;
-    timestats.dow[dow]++;
-    timestats.months[month]++;
+          timestats.sessionCount++;
+          timestats.sessionHours[d.getHours()];
+          timestats.sessionDow[d.getDay()];
+          timestats.sessionMonths[d.getMonth()];
+        }
+      }
+    }
+
+    d = new Date(0);
+    d.setUTCMilliseconds(entries[entries.length - 1].timestamp);
+
+    timestats.sessionCount++;
+    timestats.sessionHours[d.getHours()];
+    timestats.sessionDow[d.getDay()];
+    timestats.sessionMonths[d.getMonth()];
   }
 
   return timestats;
