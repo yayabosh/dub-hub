@@ -171,6 +171,16 @@ const tracklist = new Set([
 // Stores the current tab's URL and title
 let tabIdtoURLandTitle = {};
 
+async function initialize() {
+  const e = await chrome.storage.sync.get('dhSessionPeriod');
+  if (e === undefined || typeof e === 'number') {
+    await chrome.storage.sync.set({
+      dhSessionPeriod: 20
+    });
+  }
+}
+initialize();
+
 // Each time a tab is updated, we store the URL and title in the map if it's in the whitelist
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (!tabIdtoURLandTitle[tabId]) {

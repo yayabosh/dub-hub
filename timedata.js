@@ -5,9 +5,9 @@ async function initialize() {
   if (e === undefined) SESSION_LENGTH = 1000 * 60 * 20;
   else {
     if (typeof e.dhSessionPeriod === 'number') {
-      SESSION_LENGTH = e.dhSessionPeriod;
+      SESSION_LENGTH = e.dhSessionPeriod * 1000 * 60;
     } else {
-      SESSION_LENGTH = Number.parseInt(e.dhSessionPeriod);
+      SESSION_LENGTH = Number.parseInt(e.dhSessionPeriod) * 1000 * 60;
     }
   }
 }
