@@ -1,35 +1,20 @@
 async function getEntries() {
-  let data = await chrome.storage.sync.get('visits');
-  return data.visits;
+  return chrome.storage.sync.get('entries') || [];
 }
 
-async function appendObject(obj) {
-  let entries = await getEntries();
-  if (!Array.isArray(entries)) {
-    entries = [];
-  }
-  entries.push(obj);
-  await chrome.storage.sync.set({ visits: entries });
-}
-
-async function addEntry(
-  entryName,
-  timestamp,
-  sourceURL,
-  pageTitle = null,
-  contentTitle = null
-) {
-  const obj = {
+async function addEntry(timestamp, title, url) {
+  // Get the current entries
+  const entries = await getEntries();
+  // Add the new entry
+  entries.push({
     timestamp: timestamp,
-    source: sourceURL,
-    pageTitle: pageTitle,
-    contentTitle: contentTitle
-  };
-  await appendObject(obj);
+    title: pageTitle,
+    url: sourceURL
+  });
+  // Save the new entries
+  chrome.storage.sync.set({ entries });
 }
-
-async function removeEntry(entryIndex) {}
 
 async function clearData() {
-  await chrome.storage.sync.set({ visits: [] });
+  await chrome.storage.sync.set({ entries: [] });
 }
