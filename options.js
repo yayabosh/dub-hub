@@ -17,6 +17,9 @@ sessionPeriodInput.addEventListener('input', async (e) => {
 });
 
 clearDataButton.addEventListener('click', async function () {
-  await clearData();
-  alert('Cleared!');
+  const result = confirm('Are you sure?\nThis action cannot be undone.');
+  if (result) {
+    await clearData();
+    alert('Cleared!');
+  }
 });
