@@ -3,16 +3,18 @@ async function getEntries() {
 }
 
 async function addEntry(timestamp, title, url) {
-  // Get the current entries
-  const entries = await getEntries();
-  // Add the new entry
-  entries.push({
-    timestamp,
-    title,
-    url
+  console.log(`Adding entry for ${title} (${url})`);
+  chrome.storage.sync.get('entries', (data) => {
+    const entries = data.entries || [];
+    entries.push({
+      url,
+      title,
+      timestamp: Date.now()
+    });
+    chrome.storage.sync.set({ entries });
   });
-  // Save the new entries
-  chrome.storage.sync.set({ entries });
+
+  chrome.storage.sync.get('entries', (data) => console.log(data));
 }
 
 async function clearData() {
