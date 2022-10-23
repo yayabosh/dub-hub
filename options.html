@@ -10,7 +10,15 @@
 
 <body>
   <h1>DubHub - Options</h1>
-  <
+
+  <h2>General</h2>
+  <label for="Session Length">
+    I spend at most
+    <input type="number" name="session-period" id="session-period" min="5" max="90" step="5" value="20">
+    minutes on a site.
+  </label><br>
+
+  <h2>Privacy</h2>
   <a href="rawdata.html" target="_blank"><button id="view-data">View Raw Data</button></a><br>
   <button id="clear-data">Clear Data</button>
   <div id="alert-div"></div>

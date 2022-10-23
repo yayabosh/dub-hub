@@ -8,11 +8,11 @@ function countWords(array) {
   for (let i = 0; i < array.length; i++) {
     const word = array[i];
     if (map.get(word) !== undefined) {
-      map.get(word).freq += 10;
+      map.get(word).freq += 1;
     } else {
       const obj = {
         word: word,
-        freq: 10
+        freq: 1
       };
       map.set(word, obj);
       set.add(obj);

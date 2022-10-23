@@ -1,4 +1,17 @@
-const SESSION_LENGTH = 1000 * 60 * 20; // length of a session
+let SESSION_LENGTH = 1000 * 60 * 20; // length of a session
+
+async function initialize() {
+  const e = await chrome.storage.sync.get('dhSessionPeriod');
+  if (e === undefined) SESSION_LENGTH = 1000 * 60 * 20;
+  else {
+    if (typeof e.dhSessionPeriod === 'number') {
+      SESSION_LENGTH = e.dhSessionPeriod;
+    } else {
+      SESSION_LENGTH = Number.parseInt(e.dhSessionPeriod);
+    }
+  }
+}
+initialize();
 
 // Get statistics about time usage
 function getTimeStats(entries) {
