@@ -21,7 +21,7 @@ function getTimeStats(entries) {
 
     const MS_TO_DAY = 1 / (1000 * 60 * 60 * 24);
     const MS_TO_WEEK = 1 / (1000 * 60 * 60 * 24 * 7);
-    const MS_TO_YEAR = 1(1000 * 60 * 60 * 24 * 365);
+    const MS_TO_YEAR = 1 / (1000 * 60 * 60 * 24 * 365);
 
     const diff = now - front;
     const dayDiff = Math.ceil(diff * MS_TO_DAY);
