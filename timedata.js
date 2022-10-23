@@ -31,9 +31,9 @@ function getTimeStats(entries) {
           d.setUTCMilliseconds(entries[i - 1].timestamp);
 
           timestats.sessionCount++;
-          timestats.sessionHours[d.getHours()];
-          timestats.sessionDow[d.getDay()];
-          timestats.sessionMonths[d.getMonth()];
+          timestats.sessionHours[d.getHours()]++;
+          timestats.sessionDow[d.getDay()]++;
+          timestats.sessionMonths[d.getMonth()]++;
         }
       }
     }
