@@ -173,7 +173,8 @@ let tabIdtoURLandTitle = {};
 
 async function initialize() {
   const e = await chrome.storage.sync.get('dhSessionPeriod');
-  if (e === undefined || typeof e === 'number') {
+  const v = e.dhSessionPeriod;
+  if (typeof v !== 'number') {
     await chrome.storage.sync.set({
       dhSessionPeriod: 20
     });

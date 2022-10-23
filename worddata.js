@@ -1,6 +1,15 @@
 const MAX_DISPLAY_WORDS = 15;
 const MAX_WORDCLOUD_WORDS = 32;
 
+const DOMAINS = [ '', 'com',
+       'net',
+         'info',
+         'xxx',
+        'tv',
+        'live',
+        'cc'];
+
+
 function countWords(array) {
   const map = new Map();
   const set = new Set();
@@ -25,9 +34,6 @@ function countWords(array) {
   map.forEach((value) => sortedWords.push(value));
   set.forEach((value) => sortedUniqueWords.push(value));
 
-  console.log(sortedWords);
-  console.log(sortedUniqueWords);
-
   const cmp = (a, b) => b.freq - a.freq;
   sortedWords.sort(cmp);
   sortedUniqueWords.sort(cmp);
@@ -42,7 +48,6 @@ function countWords(array) {
 function countAllWords(entries) {
   const allWords = [];
   for (let i = 0; i < entries.length; i++) {
-    console.log(entries[i].title);
     const title = entries[i].title
       .replace(/\u2019/g, '')
       .replace(/\u2018/g, '')
@@ -50,11 +55,26 @@ function countAllWords(entries) {
       .replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/g, '')
       .replace(/^\s+|\s+$/g, '')
       .toLowerCase();
-    console.log(title);
 
     const splitted = title.split(/\s+/);
     for (let j = 0; j < splitted.length; j++) {
       // test against stoplist and tracklist
+      let found = false;
+      tracklist.forEach((elem) => {
+        const s = elem.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/g, '').toLowerCase();
+        for (let k = 0; k < DOMAINS.length; k++) {
+          if (s + DOMAINS[k] === splitted[j]) {
+            found = true;
+            return false;
+          }
+        }
+
+        return true;
+      });
+
+      if (found)
+        continue;
+
       if (STOPWORDS.has(splitted[j]) || tracklist.has(splitted[j])) continue;
       if (splitted[j].match(/^\d+$/g) && splitted[j] !== '69') continue;
       allWords.push(splitted[j]);

@@ -4,6 +4,7 @@
   "description": "TODO",
   "version": "1.0",
   "options_page": "options.html",
+  "icons": { "128": "images/icon128.png",  "48": "images/icon48.png", "16": "images/icon16.png" },
   "action": {
     "default_popup": "popup/popup.html",
     "default_title": "Dub Hub"
@@ -12,5 +13,5 @@
     "service_worker": "background.js"
   },
   "permissions": ["storage", "tabs"],
-  "homepage_url": "home.html"
+  "incognito": "spanning"
 }

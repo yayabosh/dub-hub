@@ -1159,5 +1159,15 @@ const STOPWORDS = new Set([
   'z',
   'zero',
   'zi',
-  'zz'
+  'zz',
+
+  'porn',
+  'video',
+  'videos',
+  'porno',
+  'pornogrpahy',
+  'movie',
+  'movies',
+  'free',
+  'xxx'
 ]);
