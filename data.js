@@ -1,5 +1,5 @@
 async function getEntries() {
-  let e = await chrome.storage.sync.get('entries');
+  const e = await chrome.storage.sync.get('entries');
   return e.entries || [];
 }
 
