@@ -72,7 +72,7 @@ async function displayAll() {
     const splitted = title.split();
     for (let j = 0; j < splitted.length; j++) {
       words.push(splitted[j]);
-      uniqueWords.add(splitted[j]);
+      uniqueWordSet.add(splitted[j]);
     }
   }
 
