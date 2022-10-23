@@ -1,39 +1,9 @@
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: 'Monthly Jerkin',
-      data: [20, 10, 5, 2, 20, 30, 45, 50, 60, 70, 0, 90],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(54, 162, 235)',
-        'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
-      ],
-      borderWidth: 1
-    }
-  ]
-};
-
 async function displayGraphs(timestats) {
   displayMonthlyGraph(timestats.sessionMonths);
   displayHourlyGraph(timestats.sessionHours);
 }
 
 function displayMonthlyGraph(monthlyData) {
-  console.log(monthlyData);
   const monthlyGraph = document.getElementById('monthly-graph');
 
   const labels = [
@@ -90,6 +60,7 @@ function displayMonthlyGraph(monthlyData) {
 }
 
 function displayHourlyGraph(hourlyData) {
+  hourlyData.push(hourlyData[0]);
   const hourlyGraph = document.getElementById('hourly-graph');
 
   const labels = [
@@ -116,7 +87,8 @@ function displayHourlyGraph(hourlyData) {
     '8:00 PM',
     '9:00 PM',
     '10:00 PM',
-    '11:00 PM'
+    '11:00 PM',
+    '12:00 AM'
   ];
 
   const data = {
@@ -135,6 +107,7 @@ function displayHourlyGraph(hourlyData) {
           'rgba(201, 203, 207, 0.2)'
         ],
         borderColor: [
+          'rgb(75, 192, 192)',
           'rgb(255, 99, 132)',
           'rgb(255, 159, 64)',
           'rgb(255, 205, 86)',
@@ -143,13 +116,12 @@ function displayHourlyGraph(hourlyData) {
           'rgb(153, 102, 255)',
           'rgb(201, 203, 207)'
         ],
-        borderWidth: 1
       }
     ]
   };
 
   const config = {
-    type: 'bar',
+    type: 'line',
     data: data,
     options: {}
   };

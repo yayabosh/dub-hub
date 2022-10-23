@@ -1,4 +1,5 @@
 const STOPWORDS = new Set([
+  '☈',
   '0o',
   '0s',
   '3a',
