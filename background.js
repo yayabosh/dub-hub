@@ -30,7 +30,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     for (const domain of whitelist) {
       if (
         url.startsWith(`https://www.${domain}`) ||
-        url.startsWith(`http://${domain}`)
+        url.startsWith(`https://${domain}`)
       ) {
         console.log(`Adding entry for ${title} (${url})`);
 
