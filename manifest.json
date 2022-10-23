@@ -5,7 +5,8 @@
   "version": "1.0",
   "options_page": "options.html",
   "action": {
-    "default_popup": "popup/popup.html"
+    "default_popup": "popup/popup.html",
+    "default_title": "Dub Hub"
   },
   "background": {
     "service_worker": "background.js"
