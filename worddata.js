@@ -1,3 +1,6 @@
+const MAX_DISPLAY_WORDS = 15;
+const MAX_WORDCLOUD_WORDS = 32;
+
 function countWords(array) {
   const map = new Map();
   const set = new Set();
@@ -51,7 +54,10 @@ function countAllWords(entries) {
 
     const splitted = title.split(/\s+/);
     for (let j = 0; j < splitted.length; j++) {
-      if (!STOPWORDS.has(splitted[j])) allWords.push(splitted[j]);
+      // test against stoplist and tracklist
+      if (STOPWORDS.has(splitted[j]) || tracklist.has(splitted[j])) continue;
+      //if (splitted[j].match(/f/g)) allWords.push(splitted[j]);
+      allWords.push(splitted[j]);
     }
   }
 
@@ -62,7 +68,7 @@ function countAllWords(entries) {
 
 async function displayCommonWords(uniqueWords) {
   let lstr = '<ol>';
-  for (let i = 0; i < uniqueWords.length && i < MAX_WORDS; i++) {
+  for (let i = 0; i < uniqueWords.length && i < MAX_DISPLAY_WORDS; i++) {
     lstr += `<li>${uniqueWords[i].word}</li>`;
   }
   lstr += '</ol>';
@@ -94,7 +100,7 @@ async function displayWordCloud(words) {
     y: wordCloudDiv.offsetHeight / 2
   };
 
-  let wordsDown = [];
+  const wordsDown = [];
   /* ======================= END SETUP ======================= */
 
   /* =======================  PLACEMENT FUNCTIONS =======================  */
@@ -162,7 +168,7 @@ async function displayWordCloud(words) {
     return false;
   }
 
-  for (let i = 0; i < words.length; i += 1) {
+  for (let i = 0; i < words.length && i < MAX_DISPLAY_WORDS; i++) {
     const word = createWordObject(words[i].word, words[i].freq);
 
     for (let j = 0; j < config.spiralLimit; j++) {

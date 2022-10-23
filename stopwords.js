@@ -1,6 +1,4 @@
 const STOPWORDS = new Set([
-  'youtube',
-  'twitter',
   '0o',
   '0s',
   '3a',

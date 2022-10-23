@@ -2,8 +2,6 @@ const commonTimesDiv = document.getElementById('common-times');
 const popularWordsDiv = document.getElementById('popular-words');
 const wordCloudDiv = document.getElementById('word-cloud');
 
-const MAX_WORDS = 10;
-
 const wordBlacklick = [];
 
 async function displayAll() {
