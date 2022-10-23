@@ -1,11 +1,12 @@
 // This is a list of sites that are whitelisted for the extension.
 const whitelist = ['youtube', 'twitter'];
 
+// From: https://toppornsites.com/
 const tracklist = new Set([
   // for testing
   'youtube',
   'twitter',
-
+  // "Top Porn Tube Sites"
   'xVideos',
   'PornHub',
   'xHamster',
@@ -77,7 +78,7 @@ const tracklist = new Set([
   'MetaPorn',
   'Here.XXX',
   'PornerBros',
-
+  // "Live Cam Sites"
   'Jasmin',
   'ImLive',
   'LivePrivates',
@@ -88,7 +89,7 @@ const tracklist = new Set([
   'SexedChat',
   'CamsFinder',
   'JerkMate',
-
+  // "Paid Porn Sites"
   'Brazzers',
   'NaughtyAmerica',
   'Reality Kings',
@@ -117,7 +118,54 @@ const tracklist = new Set([
   'KinkyFamily',
   'DorcelClub',
   'ClubTug',
-  'BestPayPornSites'
+  'BestPayPornSites',
+  'Blacked',
+  'BlackedRaw'
+  'Vixen',
+  'Tushy',
+  'TushyRaw'
+  // "Top VR Porn Sites"
+  'VrPorn',
+  'VRSmash',
+  'BadoinkVR',
+  'WankzVR',
+  'CzechVR',
+  'SexLikeReal',
+  'StripChatVR',
+  'BaberoticaVR',
+  // "Gay Porn Sites"
+  'GayMaleTube',
+  'ManPorn',
+  'YouPornGay',
+  'GayFuror',
+  'JustUsBoys',
+  'MyPornGay',
+  // "Amateur Porn Sites"
+  'WatchMyExGF',
+  'Fantasti',
+  'Amateurest',
+  'WatchMyGF.me',
+  // "Adult Online Shops"
+  'SiliconWives',
+  'YourDoll',
+  'JSDolls',
+  'AcSexDolls',
+  'SexySexDoll',
+  'SexyRealSexDolls',
+  'SexMachine',
+  'JoyLoveDolls',
+  'Sohimi',
+  // "Hentai Porn Sites"
+  'Hentaigasm',
+  'Fakku',
+  'Gelbooru',
+  'HentaiPulse',
+  'Porcore',
+  'CartoonPorno',
+  // User-recommended sites
+  'Bellesa',  // Kelly
+  'OnlyFans',
+  'twitch.tv/amouranth'
 ]);
 
 // Stores the current tab's URL and title
