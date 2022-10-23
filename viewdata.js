@@ -64,32 +64,41 @@ async function displayAll() {
       `<p>Your Peak Hour: ${hr}:00 ${com < 12 ? 'am' : 'pm'}</p>` + lstr;
   }
 
+  const uniqueWordSet = new Set();
   let words = [];
   for (let i = 0; i < entries.length; i++) {
     const title = entries[i].title;
     console.log(title);
     const splitted = title.split();
-    words.push(splitted);
+    for (let j = 0; j < splitted.length; j++) {
+      words.push(splitted[j]);
+      uniqueWords.add(splitted[j]);
+    }
   }
-  console.log(words);
 
-  words.map(function (word) {
+  function mapFun(word) {
     return {
       word: word,
       freq: Math.floor(Math.random() * 50) + 10
     };
-  });
+  }
 
-  words.sort(function (a, b) {
+  function sortFun(a, b) {
     return -1 * (a.freq - b.freq);
-  });
+  }
 
-  console.log(words);
+  let uniqueWordArray = [...uniqueWordSet.entries()];
+
+  words.map(mapFun);
+  uniqueWordArray.map(mapFun);
+
+  words.sort(sortFun);
+  uniqueWordArray.sort(sortFun);
 
   async function displayCommonWords() {
     let lstr = '<ol>';
-    for (let i = 0; i < words.length; i++) {
-      lstr += `<li>${words[i]}</li>`;
+    for (let i = 0; i < uniqueWordArray.length; i++) {
+      lstr += `<li>${uniqueWordArray[i]}</li>`;
     }
     lstr += '</ol>';
     popularWordsDiv.innerHTML = lstr;
