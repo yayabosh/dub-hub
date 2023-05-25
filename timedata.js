@@ -42,7 +42,8 @@ function getTimeStats(entries) {
     const yearDiff = Math.ceil(diff * MS_TO_YEAR);
 
     let d;
-    for (let i = 0; i < entries.length; i++) {
+    let i = 0;
+    for (; i < entries.length && entries[i] !== undefined; i++) {
       d = new Date(0);
       d.setUTCMilliseconds(entries[i].timestamp);
 
@@ -65,27 +66,27 @@ function getTimeStats(entries) {
     }
 
     d = new Date(0);
-    d.setUTCMilliseconds(entries[entries.length - 1].timestamp);
+    d.setUTCMilliseconds(entries[i - 1].timestamp);
 
     timestats.sessionTotal++;
     timestats.sessionHours[d.getHours()]++;
     timestats.sessionDow[d.getDay()]++;
     timestats.sessionMonths[d.getMonth()]++;
 
-    for (let i = 0; i < 24; i++) {
-      timestats.hours[i] /= dayDiff;
-      timestats.sessionHours[i] /= dayDiff;
-    }
+    // for (let i = 0; i < 24; i++) {
+    //   timestats.hours[i] /= dayDiff;
+    //   timestats.sessionHours[i] /= dayDiff;
+    // }
 
-    for (let i = 0; i < 7; i++) {
-      timestats.dow[i] /= weekDiff;
-      timestats.sessionDow[i] /= weekDiff;
-    }
+    // for (let i = 0; i < 7; i++) {
+    //   timestats.dow[i] /= weekDiff;
+    //   timestats.sessionDow[i] /= weekDiff;
+    // }
 
-    for (let i = 0; i < 12; i++) {
-      timestats.months[i] /= yearDiff;
-      timestats.sessionMonths[i] /= yearDiff;
-    }
+    // for (let i = 0; i < 12; i++) {
+    //   timestats.months[i] /= yearDiff;
+    //   timestats.sessionMonths[i] /= yearDiff;
+    // }
   }
 
   return timestats;

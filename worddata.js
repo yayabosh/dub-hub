@@ -46,7 +46,7 @@ function countWords(array) {
 
 function countAllWords(entries) {
   const allWords = [];
-  for (let i = 0; i < entries.length; i++) {
+  for (let i = 0; i < entries.length && entries[i] !== undefined; i++) {
     const title = entries[i].title
       .replace(/\u2019/g, '')
       .replace(/\u2018/g, '')

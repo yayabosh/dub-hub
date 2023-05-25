@@ -165,7 +165,11 @@ const tracklist = new Set([
   // User-recommended sites
   'Bellesa', // Kelly
   'OnlyFans',
-  'twitch.tv/amouranth'
+  'twitch.tv/amouranth',
+  'Chaturbate', // Amogh
+  'CelebJihad', // Amogh
+  'RedTube', // Andrew
+  'jav.guru'
 ]);
 
 // Stores the current tab's URL and title
